@@ -169,11 +169,11 @@
 
   // [bool] Ctrl+C copies if true, send ^C to host if false.
   //        Ctrl+Shift+C sends ^C to host if true, copies if false.
-     ctrl_c_copy = true
+  // ctrl_c_copy = true
 
   // [bool] Ctrl+V pastes if true, send ^V to host if false.
   //        Ctrl+Shift+V sends ^V to host if true, pastes if false.
-     ctrl_v_paste = true
+  // ctrl_v_paste = true
 
   // [bool] Set whether East Asian Ambiguous characters have two column width.
   // east_asian_ambiguous_as_two_column = false
