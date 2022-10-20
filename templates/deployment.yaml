@@ -50,6 +50,10 @@ spec:
           - name: GOTTY_CREDENTIAL_FILE
             value: "/opt/webkubectl.passwd"
           {{- end }}
+          {{- if .Values.configFile }}
+          - name: GOTTY_CONFIG
+            value: "/opt/webkubectl.config"
+          {{- end }}
           {{- if .Values.secret }}
           - name: GOTTY_CREDENTIAL
             valueFrom:
@@ -61,15 +65,22 @@ spec:
           - name: {{ $key }}
             value: {{ $value }}
           {{- end }}
+          {{- if or (.Values.secretFile) (.Values.configFile) }}
+          volumeMounts:   
           {{- if .Values.secretFile }}
-          volumeMounts:
           - name: {{ include "webkubectl.fullname" . }}
-            mountPath: /opt/webkubectl.passwd
+            mountPath: "/opt/webkubectl.passwd"
             subPath: credentials.conf
           {{- end }}
+          {{- if .Values.configFile }}
+          - name: {{ include "webkubectl.fullname" . }}
+            mountPath: "/opt/webkubectl.config"
+            subPath: config.conf
+          {{- end }}
+          {{- end}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- if .Values.secretFile }}
+      {{- if or (.Values.secretFile) (.Values.configFile) }}
       volumes:
       - name: {{ include "webkubectl.fullname" . }}
         configMap:
