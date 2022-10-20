@@ -44,7 +44,11 @@ extraENV: []
 #  key: "credentials"
 #  value: "user01:password01" #change it with your own credentials
 
+# secret file path
 secretFile: {}
+
+#config file path
+configFile: {}
 
 service:
   type: ClusterIP
